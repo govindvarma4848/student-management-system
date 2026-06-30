@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <welcome-file-list>
+        <welcome-file>Login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Login Validator Servlet -->
+
+    <servlet>
+        <servlet-name>LoginValidator</servlet-name>
+        <servlet-class>com.myapp.LoginValidator</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoginValidator</servlet-name>
+        <url-pattern>/LoginValidator</url-pattern>
+    </servlet-mapping>
+
+    <!-- Add Student Servlet -->
+
+    <servlet>
+        <servlet-name>AddStudent</servlet-name>
+        <servlet-class>com.myapp.AddStudent</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddStudent</servlet-name>
+        <url-pattern>/AddStudent</url-pattern>
+    </servlet-mapping>
+<servlet>
+    <servlet-name>DeleteStudent</servlet-name>
+    <servlet-class>com.myapp.DeleteStudent</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>DeleteStudent</servlet-name>
+    <url-pattern>/DeleteStudent</url-pattern>
+</servlet-mapping>
+<servlet>
+    <servlet-name>UpdateStudent</servlet-name>
+    <servlet-class>com.myapp.UpdateStudent</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>UpdateStudent</servlet-name>
+    <url-pattern>/UpdateStudent</url-pattern>
+</servlet-mapping>
+</web-app>
