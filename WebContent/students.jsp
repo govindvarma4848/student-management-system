@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="com.myapp.DBConnection" %>
 
 <html>
 <head>
@@ -17,36 +18,57 @@
 </tr>
 
 <%
-try{
-    Class.forName("com.mysql.cj.jdbc.Driver");
+Connection con = null;
+Statement st = null;
+ResultSet rs = null;
 
-    Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studentdb",
-        "root",
-        "manager"
-    );
+try {
 
-    Statement st = con.createStatement();
+    con = DBConnection.getConnection();
 
-    ResultSet rs = st.executeQuery("select * from students");
+    st = con.createStatement();
 
-    while(rs.next()){
+    rs = st.executeQuery("SELECT * FROM students");
+
+    while (rs.next()) {
 %>
 
 <tr>
-    <td><%= rs.getInt(1) %></td>
-    <td><%= rs.getString(2) %></td>
-    <td><%= rs.getString(3) %></td>
-    <td><%= rs.getString(4) %></td>
+    <td><%= rs.getInt("id") %></td>
+    <td><%= rs.getString("name") %></td>
+    <td><%= rs.getString("gmail") %></td>
+    <td><%= rs.getString("branch") %></td>
 </tr>
 
 <%
     }
 
-    con.close();
+} catch (Exception e) {
+%>
 
-}catch(Exception e){
-    out.println(e);
+<tr>
+    <td colspan="4" style="color:red;">
+        <%= e.getMessage() %>
+    </td>
+</tr>
+
+<%
+} finally {
+
+    try {
+        if (rs != null)
+            rs.close();
+    } catch (Exception e) {
+    }
+
+    try {
+        if (st != null)
+            st.close();
+    } catch (Exception e) {
+    }
+
+    // Do not close the connection.
+    // DBConnection manages and reuses it.
 }
 %>
 

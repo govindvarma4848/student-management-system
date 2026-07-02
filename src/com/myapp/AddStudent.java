@@ -18,6 +18,9 @@ public class AddStudent extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
+        Connection con = null;
+        PreparedStatement pst = null;
+
         try {
 
             int id = Integer.parseInt(request.getParameter("id"));
@@ -25,38 +28,47 @@ public class AddStudent extends HttpServlet {
             String gmail = request.getParameter("gmail");
             String branch = request.getParameter("branch");
 
-            Connection con = DBConnection.getConnection();
+            con = DBConnection.getConnection();
 
-            PreparedStatement pst = con.prepareStatement(
-                    "insert into students values(?,?,?,?)");
+            pst = con.prepareStatement(
+                    "INSERT INTO students (id, name, gmail, branch) VALUES (?, ?, ?, ?)");
 
             pst.setInt(1, id);
             pst.setString(2, name);
             pst.setString(3, gmail);
             pst.setString(4, branch);
 
-            int i = pst.executeUpdate();
+            int rows = pst.executeUpdate();
 
-            if (i > 0) {
+            response.setContentType("text/html");
 
-                response.setContentType("text/html");
+            if (rows > 0) {
 
-                response.getWriter().println(
-                        "<h1>Student Added Successfully</h1>");
-                response.getWriter().println(
-                        "<a href='students.jsp'>View Students</a>");
+                response.getWriter().println("<h2>Student Added Successfully!</h2>");
+                response.getWriter().println("<a href='students.jsp'>View Student Details</a>");
 
             } else {
 
-                response.getWriter().println(
-                        "<h1>Student Not Added</h1>");
+                response.getWriter().println("<h2>Student Not Added!</h2>");
+                response.getWriter().println("<a href='addstudent.jsp'>Try Again</a>");
             }
 
-            pst.close();
-            con.close();
-
         } catch (Exception e) {
+
+            response.setContentType("text/html");
+            response.getWriter().println("<h2>Error: " + e.getMessage() + "</h2>");
             e.printStackTrace();
+
+        } finally {
+
+            try {
+                if (pst != null)
+                    pst.close();
+            } catch (Exception e) {
+            }
+
+            // Don't close the connection here.
+            // DBConnection manages it.
         }
     }
 }

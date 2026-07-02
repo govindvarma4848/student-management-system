@@ -1,29 +1,63 @@
+<!DOCTYPE html>
 <html>
+<head>
+<meta charset="UTF-8">
+<title>Update Student</title>
+</head>
+
 <body>
+
+<center>
 
 <h2>Update Student</h2>
 
 <form action="UpdateStudent" method="post">
 
-ID:
-<input type="text" name="id">
-<br><br>
+<table>
 
-Name:
-<input type="text" name="name">
-<br><br>
+<tr>
+    <td>Student ID</td>
+    <td>
+        <input type="number" name="id" required>
+    </td>
+</tr>
 
-Gmail:
-<input type="text" name="gmail">
-<br><br>
+<tr>
+    <td>Name</td>
+    <td>
+        <input type="text" name="name" required>
+    </td>
+</tr>
 
-Branch:
-<input type="text" name="branch">
-<br><br>
+<tr>
+    <td>Gmail</td>
+    <td>
+        <input type="email" name="gmail" required>
+    </td>
+</tr>
 
-<input type="submit" value="Update Student">
+<tr>
+    <td>Branch</td>
+    <td>
+        <input type="text" name="branch" required>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" align="center">
+        <input type="submit" value="Update Student">
+    </td>
+</tr>
+
+</table>
 
 </form>
+
+<br>
+
+<a href="home.jsp">Home</a>
+
+</center>
 
 </body>
 </html>

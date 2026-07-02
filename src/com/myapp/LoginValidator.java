@@ -18,41 +18,61 @@ public class LoginValidator extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
         try {
 
             String userName = request.getParameter("username");
             String password = request.getParameter("password");
 
-            DBConnection db = new DBConnection();
-            Connection con = db.getConnection();
+            con = DBConnection.getConnection();
 
-            PreparedStatement pst = con.prepareStatement(
-            	    "select * from users where username=? and password=?");
+            pst = con.prepareStatement(
+                    "SELECT * FROM users WHERE username=? AND password=?");
+
             pst.setString(1, userName);
             pst.setString(2, password);
 
-            ResultSet rs = pst.executeQuery();
+            rs = pst.executeQuery();
 
             if (rs.next()) {
 
-            	RequestDispatcher rd =
-            	        request.getRequestDispatcher("home.jsp");
+                RequestDispatcher rd =
+                        request.getRequestDispatcher("home.jsp");
                 rd.forward(request, response);
 
             } else {
 
+                response.setContentType("text/html");
+
                 response.getWriter().println(
-                        "<h1 align='center'>Invalid Username Or Password</h1>");
+                        "<h2 align='center'>Invalid Username or Password</h2>");
                 response.getWriter().println(
-                        "<a href='Login.jsp'>Login Again</a>");
+                        "<center><a href='Login.jsp'>Login Again</a></center>");
             }
 
-            rs.close();
-            pst.close();
-            con.close();
-
         } catch (Exception e) {
+
             e.printStackTrace();
+
+        } finally {
+
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (Exception e) {
+            }
+
+            try {
+                if (pst != null)
+                    pst.close();
+            } catch (Exception e) {
+            }
+
+            // Do NOT close the connection here because DBConnection
+            // reuses it across the application.
         }
     }
 }

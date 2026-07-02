@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Student Management System</title>
 </head>
 
@@ -18,21 +18,25 @@
 
 <br>
 
-<a href="students.jsp">View Student Details</a>
+<h3>Menu</h3>
+
+<a href="students.jsp">📋 View Student Details</a>
 
 <br><br>
 
-<a href="addstudent.jsp">Add Student</a>
-<br><br>
-
-<a href="deletestudent.jsp">Delete Student</a>
-<br><br>
-
-<a href="updatestudent.jsp">Update Student</a>
+<a href="addstudent.jsp">➕ Add Student</a>
 
 <br><br>
 
-<a href="Login.jsp">Logout</a>
+<a href="updatestudent.jsp">✏️ Update Student</a>
+
+<br><br>
+
+<a href="deletestudent.jsp">🗑 Delete Student</a>
+
+<br><br>
+
+<a href="Login.jsp">🚪 Logout</a>
 
 </center>
 
