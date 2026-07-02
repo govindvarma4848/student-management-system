@@ -5,15 +5,23 @@ import java.sql.DriverManager;
 
 public class DBConnection {
 
-    public static Connection getConnection() throws Exception {
+    private static Connection con;
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
+    public static Connection getConnection() {
 
-        Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/studentdb",
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            con = DriverManager.getConnection(
+                "jdbc:mysql://hayabusa.proxy.rlwy.net:34489/railway",
                 "root",
-                "manager"
-        );
+                "zlJqmywveDZqsuDTZVTQGVyVbLpIYdJz"
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return con;
     }
